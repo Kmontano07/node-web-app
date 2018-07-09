@@ -15,13 +15,13 @@ io.on('connection', (socket) => {
   console.log('New User Connected');
 
   socket.on('createMessage', (message) => {
-    console.log('Receieved email from client', message);
-  });
+    console.log('createMessage: ', message);
 
-  socket.emit('newMessage', {
-    from: 'billy@zen.net',
-    text: 'Looking good my man',
-    createdAt: new Date()
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime()
+    });
   });
 
   socket.on('disconnect', () => {
